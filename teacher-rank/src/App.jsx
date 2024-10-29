@@ -1,12 +1,14 @@
-import './App.css'
+// src/App.jsx
 
-function App() {
+import SignupForm from './components/SignupForm.jsx';
+import './App.css';
+
+const App = () => {
   return (
-    <>
-      <h1 className='head'>Welcome to Teacher Rank</h1>
-      <p>This is a platform where you can rank and review teachers.</p>
-    </>
-  )
-}
+    <div className="app">
+      <SignupForm />
+    </div>
+  );
+};
 
-export default App
+export default App;

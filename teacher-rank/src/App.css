@@ -33,14 +33,13 @@
   }
 }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-.head {
-  color: black;
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #6c2dc7;
+  /* Purple background */
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
 }
