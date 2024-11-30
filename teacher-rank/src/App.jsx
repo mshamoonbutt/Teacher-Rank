@@ -1,10 +1,17 @@
-import './App.css'
 
+import Header from "./Header.jsx"
+import Body from "./Body.jsx"
+import Option from "./Siginup-option.jsx"
+import Siginup from "./siginup.jsx"
+import Login from "./login.jsx"
+import Home from "./Home.jsx"
+import Course from "./courses.jsx"
+import Teacher from "./Teacher.jsx"
 function App() {
   return (
     <>
-      <h1 className='head'>Welcome to Teacher Rank</h1>
-      <p>This is a platform where you can rank and review teachers.</p>
+      <Header/>
+      <Teacher/>
     </>
   )
 }
