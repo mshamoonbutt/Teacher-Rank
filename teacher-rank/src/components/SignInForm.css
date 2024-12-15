@@ -1,0 +1,97 @@
+/* src/components/SignupForm.css */
+
+.signup-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #6c2dc7;
+    /* Purple background */
+    height: 100vh;
+    padding-top: 50px;
+    font-family: Arial, sans-serif;
+}
+
+.error-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    color: black;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+    width: 250px;
+    text-align: center;
+}
+
+.retry-button {
+    background-color: #4b1b93;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+.signup-title {
+    background-color: #c9a3f0;
+    /* Light purple */
+    color: #6c2dc7;
+    /* Darker purple text */
+    padding: 12px 24px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.signup-box {
+    background-color: white;
+    width: 520px;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.signup-box label {
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+    text-align: left;
+    margin-bottom: 4px;
+}
+
+.signup-box input,
+.signup-box textarea,
+.signup-box select {
+    background-color: white;
+    color: black;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.signup-box input {
+    height: 36px;
+}
+
+.signup-box textarea {
+    resize: vertical;
+    height: 60px;
+}
+
+.submit-button {
+    background: linear-gradient(90deg, #6c2dc7, #4b1b93);
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}

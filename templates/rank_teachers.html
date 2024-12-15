@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teacher Rankings</title>
+</head>
+<body>
+    <h1>Teacher Rankings</h1>
+    <table>
+        <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Average Rating</th>
+        </tr>
+        {% for teacher in teachers %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ teacher.name }}</td>
+            <td>{{ teacher.department }}</td>
+            <td>{{ teacher.average_rating|floatformat:2 }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
