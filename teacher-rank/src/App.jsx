@@ -10,6 +10,6 @@ const App = () => {
       <SignupForm />
     </div>
   );
-};
+};  
 
 export default App;

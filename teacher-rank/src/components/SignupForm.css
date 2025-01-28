@@ -95,3 +95,16 @@
     cursor: pointer;
     font-weight: bold;
 }
+
+.welcome-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.welcome-page h1 {
+    font-size: 3rem;
+    color: #333;
+}
