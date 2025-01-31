@@ -8,10 +8,16 @@ import Course from "./courses.jsx"
 import Teacher from "./Teacher.jsx"
 import Rating from "./Viewrating.jsx"
 function App() {
+  const styles = {
+    backgroundColor : "purple",
+    minHeight: "100vh",
+    margin : "0%"
+  }
   return (
-    <>
-      <Header/>
-    </>
+    <body style={styles}>
+        <Header/>
+        <Body/>
+    </body>
   )
-}
+};
 export default App

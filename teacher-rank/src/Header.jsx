@@ -1,12 +1,12 @@
 function Header(){
     const styles = {
-        backgroundColor: "7209b7",  // Set background color to purple
+        backgroundColor: "purple",  // Set background color to purple
         textAlign: "center",
         padding: "15px",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        color: "white",
+        color: "pink",
         fontFamily: "Times New Roman, serif"
     };
     
@@ -18,7 +18,7 @@ function Header(){
     };
     
     const linkStyles = {
-        color: "white",
+        color: "pink",
         textDecoration: "none",
         fontSize: "18px"
     };
@@ -37,27 +37,5 @@ function Header(){
             </nav>
         </header>
     );
-}
+};
 export default Header
-const styles = {
-    backgroundColor: "purple",  // Set background color to purple
-    textAlign: "center",
-    padding: "15px",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    color: "white"
-};
-
-const navStyles = {
-    display: "flex",
-    listStyle: "none",
-    gap: "15px",
-    padding: 0
-};
-
-const linkStyles = {
-    color: "white",
-    textDecoration: "none",
-    fontSize: "18px"
-};

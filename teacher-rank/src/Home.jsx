@@ -1,4 +1,19 @@
 function Home(){
+    const styles = {
+        textAlign : "center",
+        color: "pink",
+        textDecoration: "none",
+        fontSize: "18px"
+    }
+    const linkStyle = {
+        color: "pink",
+        textDecoration: "none",
+        fontSize: "18px",
+    }
+    const listStyle = {
+        listStyleType: "none", // This removes the bullet points
+        paddingLeft: "0", // Optional: Removes default left padding
+    }
     const courses = [
         {id: "comp", name: "COMP"},
         {id: "cscs", name: "CSCS"},
@@ -36,9 +51,9 @@ function Home(){
         {id: "urdu", name: "URDU"},
         {id: "wrcm", name: "WRCM"}
     ]
-    const courseItem = courses.map(course => <li key={course.id}><a href="#">{course.name}</a></li>)
+    const courseItem = courses.map(course => <li key={course.id}><a href="#" style={linkStyle}>{course.name}</a></li>)
     return(
-        <body>
+        <body style={styles}>
             <div>
                 <h1>Welcome to Teacher Rank</h1>
             </div>
@@ -46,7 +61,7 @@ function Home(){
                 <h3>Choose the department</h3>
             </div>
             <div>
-                <ul>
+                <ul style={listStyle}>
                     {courseItem}
                 </ul>
             </div>
