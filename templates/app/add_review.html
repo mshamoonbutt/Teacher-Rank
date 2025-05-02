@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Review {{ teacher.name }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h1>Review {{ teacher.name }}</h1>
+        
+        <form method="post" class="mt-4">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label class="form-label">Rating</label>
+                <div class="rating-input">
+                    {% for i in "54321" %}
+                    <input type="radio" name="rating" value="{{ i }}" id="rating{{ i }}" class="d-none" required>
+                    <label for="rating{{ i }}" class="rating-star">
+                        <i class="far fa-star fa-2x"></i>
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="comment" class="form-label">Your Review</label>
+                <textarea name="comment" id="comment" class="form-control" rows="5" required></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Submit Review</button>
+            <a href="{% url 'teacher_detail' teacher.pk %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+
+<style>
+.rating-input {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.rating-input input:checked ~ label i,
+.rating-input label:hover i,
+.rating-input label:hover ~ label i {
+    color: #ffc107;
+}
+
+.rating-input label {
+    cursor: pointer;
+    padding: 0 0.1em;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const labels = document.querySelectorAll('.rating-star');
+    labels.forEach(label => {
+        label.addEventListener('mouseover', function() {
+            this.querySelector('i').classList.remove('far');
+            this.querySelector('i').classList.add('fas');
+        });
+        label.addEventListener('mouseout', function() {
+            if (!this.previousElementSibling.checked) {
+                this.querySelector('i').classList.remove('fas');
+                this.querySelector('i').classList.add('far');
+            }
+        });
+    });
+});
+</script>
+{% endblock %} 

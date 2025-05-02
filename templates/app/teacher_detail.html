@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ teacher.name }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h1>{{ teacher.name }}</h1>
+        <h4 class="text-muted">{{ teacher.department }}</h4>
+        
+        <div class="rating my-3">
+            {% with ''|center:teacher.average_rating as range %}
+            {% for _ in range %}
+                <i class="fas fa-star fa-2x"></i>
+            {% endfor %}
+            {% endwith %}
+            <span class="text-muted">({{ teacher.average_rating|floatformat:1 }})</span>
+        </div>
+        
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">About</h5>
+                <p class="card-text">{{ teacher.bio }}</p>
+                {% if teacher.email %}
+                    <p class="card-text"><strong>Email:</strong> {{ teacher.email }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <h3>Reviews</h3>
+        {% if user.is_authenticated %}
+            <a href="{% url 'add_review' teacher.pk %}" class="btn btn-primary mb-4">Write a Review</a>
+        {% else %}
+            <p>Please <a href="{% url 'login' %}">login</a> to write a review.</p>
+        {% endif %}
+
+        {% for review in reviews %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-title">{{ review.student.username }}</h5>
+                        <div class="rating">
+                            {% with ''|center:review.rating as range %}
+                            {% for _ in range %}
+                                <i class="fas fa-star"></i>
+                            {% endfor %}
+                            {% endwith %}
+                        </div>
+                    </div>
+                    <p class="card-text">{{ review.comment }}</p>
+                    <small class="text-muted">Posted on {{ review.created_at|date:"F j, Y" }}</small>
+                </div>
+            </div>
+        {% empty %}
+            <p>No reviews yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %} 

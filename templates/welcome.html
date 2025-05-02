@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Welcome to Teacher Rank{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <h1 class="display-4 mb-4">Welcome to Teacher Rank</h1>
+            <p class="lead mb-4">Rate and review your teachers to help others make informed decisions.</p>
+            
+            {% if not user.is_authenticated %}
+            <div class="alert alert-info mb-4">
+                <h4 class="alert-heading">Login Required!</h4>
+                <p>Please login or register to access all features:</p>
+                <ul class="list-unstyled">
+                    <li>✓ View teacher profiles</li>
+                    <li>✓ Rate and review teachers</li>
+                    <li>✓ See top rated teachers</li>
+                </ul>
+            </div>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="{% url 'login' %}" class="btn btn-primary btn-lg px-4 gap-3">Login</a>
+                <a href="{% url 'register' %}" class="btn btn-outline-primary btn-lg px-4">Register</a>
+            </div>
+            {% else %}
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="{% url 'teacher_list' %}" class="btn btn-primary btn-lg px-4 gap-3">View Teachers</a>
+                <a href="{% url 'rank_teachers' %}" class="btn btn-outline-primary btn-lg px-4">Top Rated</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-star fa-3x mb-3 text-warning"></i>
+                    <h3 class="card-title">Rate Teachers</h3>
+                    <p class="card-text">Share your experience and rate your teachers to help others.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-comments fa-3x mb-3 text-primary"></i>
+                    <h3 class="card-title">Read Reviews</h3>
+                    <p class="card-text">Read detailed reviews from other students to make informed decisions.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-trophy fa-3x mb-3 text-success"></i>
+                    <h3 class="card-title">Find the Best</h3>
+                    <p class="card-text">Discover top-rated teachers in your department.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

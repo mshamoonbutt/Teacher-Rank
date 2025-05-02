@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Teachers{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">{% if ranked %}Top Rated Teachers{% else %}All Teachers{% endif %}</h1>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for teacher in teachers %}
+        <div class="col">
+            <div class="card h-100 teacher-card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ teacher.name }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ teacher.department }}</h6>
+                    <div class="rating mb-2">
+                        {% if teacher.avg_rating %}
+                            {% with ''|ljust:teacher.avg_rating|floatformat:"0" as stars %}
+                                {% for _ in stars %}
+                                    <i class="fas fa-star"></i>
+                                {% endfor %}
+                            {% endwith %}
+                            <span class="text-muted">({{ teacher.avg_rating|floatformat:1 }})</span>
+                        {% else %}
+                            <span class="text-muted">(No ratings yet)</span>
+                        {% endif %}
+                    </div>
+                    <p class="card-text">
+                        Office: {{ teacher.office }}<br>
+                        Extension: {{ teacher.extension }}
+                    </p>
+                    <a href="{% url 'teacher_detail' teacher.id %}" class="btn btn-primary">View Profile</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="text-center">No teachers found.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %} 
