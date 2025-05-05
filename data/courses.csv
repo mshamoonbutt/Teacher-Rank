@@ -1,0 +1,10 @@
+course_code,course_name,department_code,credits,description
+CS101,Introduction to Programming,CS,3,Basic programming concepts using Python
+CS201,Data Structures,CS,3,Fundamental data structures and algorithms
+CS301,Database Systems,CS,3,Introduction to database design and SQL
+EE101,Circuit Analysis,EE,3,Basic electrical circuit analysis
+EE201,Digital Electronics,EE,3,Digital logic design and implementation
+EE301,Power Systems,EE,3,Power generation, transmission, and distribution
+BBA101,Principles of Management,BBA,3,Introduction to management concepts
+BBA201,Marketing Management,BBA,3,Marketing strategies and consumer behavior
+BBA301,Financial Management,BBA,3,Financial analysis and decision making 

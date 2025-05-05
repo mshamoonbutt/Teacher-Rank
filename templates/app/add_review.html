@@ -3,52 +3,75 @@
 {% block title %}Review {{ teacher.name }}{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-8">
-        <h1>Review {{ teacher.name }}</h1>
-        
-        <form method="post" class="mt-4">
-            {% csrf_token %}
-            
-            <div class="mb-3">
-                <label class="form-label">Rating</label>
-                <div class="rating-input">
-                    {% for i in "54321" %}
-                    <input type="radio" name="rating" value="{{ i }}" id="rating{{ i }}" class="d-none" required>
-                    <label for="rating{{ i }}" class="rating-star">
-                        <i class="far fa-star fa-2x"></i>
-                    </label>
-                    {% endfor %}
+<div class="container mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'teacher_list' %}">Teachers</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'teacher_detail' teacher.id %}">{{ teacher.name }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Add Review</li>
+        </ol>
+    </nav>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title">Review {{ teacher.name }}</h1>
+                    
+                    <form method="post" class="mt-4">
+                        {% csrf_token %}
+                        
+                        {% if courses %}
+                        <div class="mb-3">
+                            <label for="course" class="form-label">Course (Optional)</label>
+                            <select name="course" id="course" class="form-select">
+                                <option value="">General Review</option>
+                                {% for course in courses %}
+                                <option value="{{ course.id }}" {% if selected_course.id == course.id %}selected{% endif %}>
+                                    {{ course.code }} - {{ course.name }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                            <div class="form-text">Select a course to make this a course-specific review.</div>
+                        </div>
+                        {% endif %}
+
+                        <div class="mb-3">
+                            <label class="form-label">Rating</label>
+                            <div class="rating-input">
+                                {% for i in "12345" %}
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="rating" 
+                                           id="rating{{ i }}" value="{{ i }}" required>
+                                    <label class="form-check-label" for="rating{{ i }}">
+                                        {{ i }} ★
+                                    </label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="comment" class="form-label">Review</label>
+                            <textarea class="form-control" id="comment" name="comment" rows="5" required
+                                      placeholder="Share your experience with this teacher..."></textarea>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Submit Review</button>
+                            <a href="{% url 'teacher_detail' teacher.id %}" class="btn btn-outline-secondary">Cancel</a>
+                        </div>
+                    </form>
                 </div>
             </div>
-            
-            <div class="mb-3">
-                <label for="comment" class="form-label">Your Review</label>
-                <textarea name="comment" id="comment" class="form-control" rows="5" required></textarea>
-            </div>
-            
-            <button type="submit" class="btn btn-primary">Submit Review</button>
-            <a href="{% url 'teacher_detail' teacher.pk %}" class="btn btn-secondary">Cancel</a>
-        </form>
+        </div>
     </div>
 </div>
 
 <style>
 .rating-input {
     display: flex;
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-}
-
-.rating-input input:checked ~ label i,
-.rating-input label:hover i,
-.rating-input label:hover ~ label i {
-    color: #ffc107;
-}
-
-.rating-input label {
-    cursor: pointer;
-    padding: 0 0.1em;
+    gap: 1rem;
 }
 </style>
 

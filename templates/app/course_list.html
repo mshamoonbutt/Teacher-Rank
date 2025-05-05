@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">All Courses</h1>
+
+    <div class="row">
+        {% regroup courses by department as department_list %}
+        {% for department in department_list %}
+        <div class="col-12 mb-4">
+            <h3>{{ department.grouper.name }} ({{ department.grouper.code }})</h3>
+            <div class="row">
+                {% for course in department.list %}
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ course.name }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ course.code }}</h6>
+                            <p class="card-text">
+                                <span class="badge bg-primary">{{ course.credits }} Credits</span>
+                                <span class="badge bg-secondary">{{ course.teacher_count }} Teachers</span>
+                                {% if course.avg_rating %}
+                                    <span class="badge bg-success">
+                                        {{ course.avg_rating|floatformat:1 }} ★
+                                    </span>
+                                {% endif %}
+                            </p>
+                            {% if course.description %}
+                                <p class="card-text">{{ course.description }}</p>
+                            {% endif %}
+                            <div class="btn-group">
+                                <a href="{% url 'course_detail' course.code %}" class="btn btn-primary">View Course</a>
+                                <a href="{% url 'teacher_list' %}?course={{ course.code }}" class="btn btn-outline-primary">View Teachers</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                No courses found.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %} 

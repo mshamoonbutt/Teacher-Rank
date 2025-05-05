@@ -3,57 +3,92 @@
 {% block title %}{{ teacher.name }}{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-8">
-        <h1>{{ teacher.name }}</h1>
-        <h4 class="text-muted">{{ teacher.department }}</h4>
-        
-        <div class="rating my-3">
-            {% with ''|center:teacher.average_rating as range %}
-            {% for _ in range %}
-                <i class="fas fa-star fa-2x"></i>
-            {% endfor %}
-            {% endwith %}
-            <span class="text-muted">({{ teacher.average_rating|floatformat:1 }})</span>
+<div class="container mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'teacher_list' %}">Teachers</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ teacher.name }}</li>
+        </ol>
+    </nav>
+
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h1>{{ teacher.name }}</h1>
+            <p class="lead">
+                <span class="badge bg-primary">Overall Rating: {{ teacher.average_rating|floatformat:1 }} ★</span>
+                <span class="badge bg-secondary">{{ teacher.courses.count }} Courses</span>
+            </p>
+            {% if teacher.bio %}
+                <p>{{ teacher.bio }}</p>
+            {% endif %}
+            {% if teacher.office %}
+                <p><strong>Office:</strong> {{ teacher.office }}</p>
+            {% endif %}
+            {% if teacher.extension %}
+                <p><strong>Extension:</strong> {{ teacher.extension }}</p>
+            {% endif %}
         </div>
-        
-        <div class="card mb-4">
-            <div class="card-body">
-                <h5 class="card-title">About</h5>
-                <p class="card-text">{{ teacher.bio }}</p>
-                {% if teacher.email %}
-                    <p class="card-text"><strong>Email:</strong> {{ teacher.email }}</p>
-                {% endif %}
+        <div class="col-md-4 text-end">
+            <a href="{% url 'add_review' teacher.id %}{% if current_course_id %}?course={{ current_course_id }}{% endif %}" 
+               class="btn btn-primary">
+                Add Review
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <h3>Courses</h3>
+            <div class="list-group mb-4">
+                {% for course_rating in course_ratings %}
+                <a href="?course={{ course_rating.course.id }}" 
+                   class="list-group-item list-group-item-action {% if current_course_id == course_rating.course.id|stringformat:'s' %}active{% endif %}">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ course_rating.course.code }}</h5>
+                        {% if course_rating.avg_rating %}
+                            <small>{{ course_rating.avg_rating|floatformat:1 }} ★</small>
+                        {% endif %}
+                    </div>
+                    <p class="mb-1">{{ course_rating.course.name }}</p>
+                </a>
+                {% endfor %}
             </div>
         </div>
 
-        <h3>Reviews</h3>
-        {% if user.is_authenticated %}
-            <a href="{% url 'add_review' teacher.pk %}" class="btn btn-primary mb-4">Write a Review</a>
-        {% else %}
-            <p>Please <a href="{% url 'login' %}">login</a> to write a review.</p>
-        {% endif %}
-
-        {% for review in reviews %}
+        <div class="col-md-8">
+            <h3>
+                Reviews 
+                {% if current_course_id %}
+                    for {{ teacher.courses.get.name }}
+                {% endif %}
+            </h3>
+            
+            {% for review in reviews %}
             <div class="card mb-3">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
-                        <h5 class="card-title">{{ review.student.username }}</h5>
-                        <div class="rating">
-                            {% with ''|center:review.rating as range %}
-                            {% for _ in range %}
-                                <i class="fas fa-star"></i>
-                            {% endfor %}
-                            {% endwith %}
+                        <h5 class="card-title">
+                            {{ review.student.username }}
+                            {% if review.course %}
+                                <small class="text-muted">for {{ review.course.code }}</small>
+                            {% endif %}
+                        </h5>
+                        <div>
+                            <span class="badge bg-primary">{{ review.rating }} ★</span>
+                            <small class="text-muted">{{ review.created_at|date }}</small>
                         </div>
                     </div>
                     <p class="card-text">{{ review.comment }}</p>
-                    <small class="text-muted">Posted on {{ review.created_at|date:"F j, Y" }}</small>
                 </div>
             </div>
-        {% empty %}
-            <p>No reviews yet.</p>
-        {% endfor %}
+            {% empty %}
+            <div class="alert alert-info">
+                No reviews yet.
+                <a href="{% url 'add_review' teacher.id %}{% if current_course_id %}?course={{ current_course_id }}{% endif %}" 
+                   class="alert-link">Be the first to review!</a>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
 {% endblock %} 

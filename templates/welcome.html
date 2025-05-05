@@ -4,7 +4,8 @@
 
 {% block content %}
 <div class="container">
-    <div class="row justify-content-center">
+    <!-- Hero Section -->
+    <div class="row justify-content-center mt-5">
         <div class="col-md-8 text-center">
             <h1 class="display-4 mb-4">Welcome to Teacher Rank</h1>
             <p class="lead mb-4">Rate and review your teachers to help others make informed decisions.</p>
@@ -23,15 +24,11 @@
                 <a href="{% url 'login' %}" class="btn btn-primary btn-lg px-4 gap-3">Login</a>
                 <a href="{% url 'register' %}" class="btn btn-outline-primary btn-lg px-4">Register</a>
             </div>
-            {% else %}
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                <a href="{% url 'teacher_list' %}" class="btn btn-primary btn-lg px-4 gap-3">View Teachers</a>
-                <a href="{% url 'rank_teachers' %}" class="btn btn-outline-primary btn-lg px-4">Top Rated</a>
-            </div>
             {% endif %}
         </div>
     </div>
 
+    <!-- Features Section -->
     <div class="row mt-5">
         <div class="col-md-4">
             <div class="card h-100">
@@ -61,5 +58,64 @@
             </div>
         </div>
     </div>
+
+    {% if user.is_authenticated %}
+    <!-- Quick Access Section -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <h2 class="text-center mb-4">Quick Access</h2>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Departments</h5>
+                    <p class="card-text">Browse academic departments and their courses.</p>
+                    <a href="{% url 'department_list' %}" class="btn btn-primary">View Departments</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Courses</h5>
+                    <p class="card-text">Explore courses and their instructors.</p>
+                    <a href="{% url 'course_list' %}" class="btn btn-primary">View Courses</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Teachers</h5>
+                    <p class="card-text">Find and review teachers.</p>
+                    <a href="{% url 'teacher_list' %}" class="btn btn-primary">View Teachers</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Departments Section -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <h2 class="text-center mb-4">Featured Departments</h2>
+        </div>
+        {% for department in departments %}
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ department.name }} ({{ department.code }})</h5>
+                    <p class="card-text">
+                        <strong>{{ department.course_count }}</strong> courses<br>
+                        <strong>{{ department.teacher_count }}</strong> teachers
+                    </p>
+                    <a href="{% url 'department_detail' department.code %}" class="btn btn-outline-primary">
+                        Explore Department
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
 </div>
 {% endblock %} 
