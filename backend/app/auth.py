@@ -7,8 +7,8 @@ from typing import Optional
 import os
 from dotenv import load_dotenv
 from sqlalchemy.orm import Session
-from backend.database.database import get_db
-from backend.database.models import User
+from .database import get_db
+from .models import User
 
 load_dotenv()
 
